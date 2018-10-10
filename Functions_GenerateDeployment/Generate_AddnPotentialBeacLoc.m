@@ -18,7 +18,7 @@ function [AddnPotentialBeacLoc] =  Generate_AddnPotentialBeacLoc(Corners,Obstacl
 
 
     AddnBeacType = -1;
-    while (AddnBeacType<0 || AddnBeacType>100)
+    while (AddnBeacType<0 || AddnBeacType>1000)
         AddnBeacType = input(['0: No addn beacons\n1: User defined addn beacons\n2: Random addn beacons\nEnter choice for additional beacon locations: ']);
     end 
 
