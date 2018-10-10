@@ -7,7 +7,7 @@ GridSize = 0.2;
 
 PlotFloorPlan(FloorPlanPath,F_Plot,1);
 GetAllPointsInFloorPlan(FloorPlanPath,GridSize,F_SaveResToPath,[]);
-RayTracingAllCornerObs(FloorPlanPath,F_SaveResToPath);
+RayTracingAllCornerObs(FloorPlanPath);
 PlotRayTracingAllCorners(FloorPlanPath); %PlotRayTracingRandomPts(FloorPlanPath)
 GetAllAmbigPtsInFloorPlan(FloorPlanPath);
 [ClustData, ClustCnt]=ClusterPointsInFloorPlan(FloorPlanPath,0);

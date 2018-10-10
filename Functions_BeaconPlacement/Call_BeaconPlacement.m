@@ -32,21 +32,21 @@ F_NewFig=1;
 
 BeaconPlaceInd=[];
 F_CriteriaSatistied=0;
-while (~F_CriteriaSatistied) % repeat while not all clusters localized 
+while (~F_CriteriaSatistied) % repeat while not all clusters localized
     IndClust = 1; % The first cluster that is not yet localized - clusters are sorted by size
     CornerInLosInd = ClustData{IndClust,3}; % Corners in LOS of the cluster
     CornerInLos = AllCornerObsPos(CornerInLosInd,:); % Coordinates of corner
     
-%     % Plot the floor plan with the points in the largest cluster and the beacons in LOS
-%     PlotFloorPlan(FloorPlan_Path);
-%     for c=1:size(ClustData,1)
-%         Pts=PtsInFp(ClustData{c,4},:);
-%         scatter(Pts(:,1),Pts(:,2),'c');
-%     end
-%     Pts=PtsInFp(ClustData{IndClust,4},:);
-%     scatter(Pts(:,1),Pts(:,2),'r');
-%     scatter(CornerInLos(:,1),CornerInLos(:,2),150,'filled');
-
+    %     % Plot the floor plan with the points in the largest cluster and the beacons in LOS
+    %     PlotFloorPlan(FloorPlan_Path);
+    %     for c=1:size(ClustData,1)
+    %         Pts=PtsInFp(ClustData{c,4},:);
+    %         scatter(Pts(:,1),Pts(:,2),'c');
+    %     end
+    %     Pts=PtsInFp(ClustData{IndClust,4},:);
+    %     scatter(Pts(:,1),Pts(:,2),'r');
+    %     scatter(CornerInLos(:,1),CornerInLos(:,2),150,'filled');
+    
     
     % Check number of beacons in LOS of cluster since different action to
     % be taken for 0 beacons and non-zero beacons
@@ -69,15 +69,15 @@ while (~F_CriteriaSatistied) % repeat while not all clusters localized
         end
         
     else % at least one beacon already present
-        for i = 1:size(CornerInLosInd,1) 
+        for i = 1:size(CornerInLosInd,1)
             PotentialBeacLoc = setdiff(CornerInLosInd,BeaconPlaceInd)';
             %Corners in LOS except where beacons already placed
             StoreDOP=[]; StoreDOP_UL=[];
             
             % For each configuration, get the coverage class and the DOP of
-            % points 
+            % points
             for config = 1:length(PotentialBeacLoc)
-                BeaconInd = [BeaconPlaceInd; PotentialBeacLoc(config)]; 
+                BeaconInd = [BeaconPlaceInd; PotentialBeacLoc(config)];
                 % for every potential beacon location
                 % add it to the placed beacons and check the coverage/dop etc
                 BeaconPos = AllCornerObsPos(BeaconInd,:);
@@ -112,15 +112,19 @@ while (~F_CriteriaSatistied) % repeat while not all clusters localized
                 SizeUL=[];
                 for w=1:size(StoreClass,2)
                     SizeUL(w) = length(find(StoreClass(:,w)<=3));
-                    %SizeUL(w)=length(find(~isnan(StoreDOP_UL(:,w))));                    
+                    %SizeUL(w)=length(find(~isnan(StoreDOP_UL(:,w))));
                 end
                 [MaxULSize,~] = max(SizeUL);
                 MaxULSizeInd = find(SizeUL==MaxULSize); %All indices that have max value
                 if(length(MaxULSizeInd)>1) %More than one have same UL area
                     Coverage=[];
                     for m=1:length(MaxULSizeInd)
-                    PtsInLosOfBeac = RayTracingInfoCornerObs{PotentialBeacLoc(MaxULSizeInd(m))};
-                    Coverage(m) = length(PtsInLosOfBeac);
+                        %m
+                        %MaxULSizeInd(m)
+                        %PotentialBeacLoc(MaxULSizeInd(m))
+                        %RayTracingInfoCornerObs{PotentialBeacLoc(MaxULSizeInd(m))}
+                        PtsInLosOfBeac = RayTracingInfoCornerObs{PotentialBeacLoc(MaxULSizeInd(m))};
+                        Coverage(m) = length(PtsInLosOfBeac);
                     end
                     [~,maxCoverageInd] = max(Coverage);
                     SelectedBeaconInd = PotentialBeacLoc(MaxULSizeInd(maxCoverageInd));
@@ -137,7 +141,7 @@ while (~F_CriteriaSatistied) % repeat while not all clusters localized
         end
     end
     BeaconPlaceInd = [BeaconPlaceInd; SelectedBeaconInd];
-
+    
     %PlotFloorPlan(FloorPlan_Path);
     
     %scatter(AllCornerObsPos(SelectedBeaconInd,1),...
@@ -173,7 +177,7 @@ while (~F_CriteriaSatistied) % repeat while not all clusters localized
     %PlotFloorPlan(FloorPlan_Path);
     for c = 1:size(ClustData,1)
         % If new beacon placed is in LOS, make F_NonZeroBeacForClust=1
-        CornerInLosInd = ClustData{c,3}; 
+        CornerInLosInd = ClustData{c,3};
         if ismember(SelectedBeaconInd,CornerInLosInd)
             ClustData{c,5}= 1;
         end
@@ -217,24 +221,24 @@ while (~F_CriteriaSatistied) % repeat while not all clusters localized
     [~,Ind]=sort(cell2mat(ClustData(:,2)),'descend'); %Sort by cluster size
     ClustData=ClustData(Ind,:);
     
-        
+    
     if(isempty(ClustData))
-             F_CriteriaSatistied=1;
-       end
-%     if COMPARE_METRIC == 'D'
-%         D = sort(DOP_UL,'ascend');
-%         if D(round(PercentArea*size(D,1)))<DOP_MAX
-%             F_CriteriaSatistied=1;
-%         end
-%     else
-%         if(isempty(ClustData))
-%             F_CriteriaSatistied=1;
-%         end
-%     end
-
+        F_CriteriaSatistied=1;
+    end
+    %     if COMPARE_METRIC == 'D'
+    %         D = sort(DOP_UL,'ascend');
+    %         if D(round(PercentArea*size(D,1)))<DOP_MAX
+    %             F_CriteriaSatistied=1;
+    %         end
+    %     else
+    %         if(isempty(ClustData))
+    %             F_CriteriaSatistied=1;
+    %         end
+    %     end
+    
     Class=GetClassOfPoints(PtsInFp_LosBeac,BeaconPos,FloorPlanPath);
     [DOP,DOP_UL]=GetDopOfPoints(PtsInFp_LosBeac,Class,FloorPlanPath);
-
+    
     StoreClassDOPAll{length(BeaconPlaceInd),1} = BeaconPlaceInd(end);
     StoreClassDOPAll{length(BeaconPlaceInd),2} = Class;
     StoreClassDOPAll{length(BeaconPlaceInd),3} = DOP;

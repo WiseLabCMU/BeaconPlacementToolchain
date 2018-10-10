@@ -52,7 +52,17 @@ while (TypeCreateFP<0 || TypeCreateFP>4)
     end
     
     if Flag==1
+        [SelectCornersForBeacLoc] =  Generate_BeacLocFromCorners(Corners,Obstacles);
         [AddnPotentialBeacLoc] =  Generate_AddnPotentialBeacLoc(Corners,Obstacles);
+        
+        RangeMax = -1;
+        while (RangeMax<0 || RangeMax>100)
+            RangeMax = input(['0: Default range (100m)\nEnter max range of beacon : ']);
+        end
+        if RangeMax<=0 || RangeMax>100
+            RangeMax = 100;
+        end
+
         
         NumberFP = -1;
         while (NumberFP<0 || NumberFP>MaxFP)
@@ -65,8 +75,8 @@ while (TypeCreateFP<0 || TypeCreateFP>4)
             rmdir(FloorPlan_Path,'s');
         end
         mkdir(FloorPlan_Path);
-
-        save(fullfile(FloorPlan_Path,'FloorPlanOutline.mat'),'Corners','Obstacles','AddnPotentialBeacLoc');
+        save(fullfile(RootPath,'FloorPlanPaths',NameFP,'RangeMax.mat'),'RangeMax');
+        save(fullfile(FloorPlan_Path,'FloorPlanOutline.mat'),'Corners','Obstacles','AddnPotentialBeacLoc','SelectCornersForBeacLoc');
     end
     
 

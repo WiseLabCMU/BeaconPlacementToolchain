@@ -33,11 +33,6 @@ for i = 1:length(IndTwoBeacInLos)
         Class(Ind)=3;
     else
         BeacLosReflPt = PtsInFp_LosBeac{ReflPointInd,2};
-%         [BeacLosReflPt]
-%         [ReflPoint]
-%         [ReflPointInd]
-%         [BeacInLos]
-%         disp(',');
         if(isempty(ismember(BeacLosReflPt,BeacInLos)) || isempty(ismember(BeacLosReflPt,BeacInLos)))
             Class(Ind)=2; %other point has different (none) beacons in LOS 
         else 

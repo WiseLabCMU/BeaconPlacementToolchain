@@ -18,11 +18,12 @@ load(fullfile(FloorPlanPath,'FloorPlanOutline.mat'));
     AllPtsInGrid = [reshape(AllPtsInGridX,size(AllPtsInGridX,1)*size(AllPtsInGridX,2),1)...
     reshape(AllPtsInGridY,size(AllPtsInGridY,1)*size(AllPtsInGridY,2),1)];
     
+    AllCornerObsPos = [SelectCornersForBeacLoc]; % The set of corners that are potential beacon locations
     FloorPlanPoly = Corners;
-    AllCornerObsPos = Corners(1:end-1,:);
+    %AllCornerObsPos = Corners(1:end-1,:);
     for ind = 1:size(Obstacles,2)
         FloorPlanPoly = [FloorPlanPoly; nan nan; Obstacles{1,ind}];
-        AllCornerObsPos = [AllCornerObsPos; Obstacles{1,ind}(1:end-1,:)];
+        %AllCornerObsPos = [AllCornerObsPos; Obstacles{1,ind}(1:end-1,:)];
     end
     
     if(~isempty(AddnPotentialBeacLoc)) % If there are additional points for which ray tracing is to be done

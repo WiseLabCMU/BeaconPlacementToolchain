@@ -1,11 +1,14 @@
-function [ RayTracingInfoCornerObs ] = RayTracingAllCornerObs(FloorPlanPath,F_SaveResToPath)
+function [ RayTracingInfoCornerObs ] = RayTracingAllCornerObs(FloorPlanPath)
 
 load(fullfile(FloorPlanPath,'FloorPlanOutline.mat'));
 load(fullfile(FloorPlanPath,'RayTracing','FloorPlanPtsInfo.mat'));
+load(fullfile(FloorPlanPath,'RangeMax.mat'));
 
-RangeMax = 100;
+
+%RangeMax = 100;
 thetha = 0:pi/50:2*pi;
 RayTracingInfoPtsInFp = cell(size(PtsInFp,1),1);
+
 for i = 1:size(AllCornerObsPos,1)
     CircleInRangeX = RangeMax * cos(thetha) + AllCornerObsPos(i,1);
     CircleInRangeY = RangeMax * sin(thetha) + AllCornerObsPos(i,2);
