@@ -24,9 +24,6 @@ if Flag~=0 % floor plan selected
     end
 end
 
-if exist(fullfile(FloorPlanPath,'RayTracing'))
-    rmdir(fullfile(FloorPlanPath,'RayTracing'),'s');
-end
 if ~exist(fullfile(FloorPlanPath,'RayTracing')) % Ray tracing not performed
     mkdir(fullfile(FloorPlanPath,'RayTracing'));
     MainRayTracing(FloorPlanPath);

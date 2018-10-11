@@ -21,7 +21,7 @@ end
 if exist(fullfile(FloorPlanPath,'D5','FinalPlacementAndQuality.mat'))
     PlacementTypes=[PlacementTypes,'S'];
 end
-figure;
+figure(1);
 
 legendName = cell(0,0);
 DOP_UL_DataAll = [];
@@ -60,17 +60,20 @@ for i = 1:NumTypes
     legendName = [legendName; PlacementLegend];
     DOP_UL_DataAll = [DOP_UL_DataAll DOP_UL];
 
-    subplot(2,NumTypes,i),PlotCoverageClass( BeaconPos,Class,FloorPlanPath,1,0 );
+    figure(1),subplot(2,NumTypes,i),PlotCoverageClass( BeaconPos,Class,FloorPlanPath,1,0 );
     title(PlacementTitle);
     if i==1 ylabel('Coverage'); end
     subplot(2,NumTypes,i+NumTypes),PlotDOPforBeaconPlacement( BeaconPos,DOP_UL,FloorPlanPath,0 );
     if i==1 ylabel('GDOP'); end
+    
+   % PlotCoverageClass( BeaconPos,Class,FloorPlanPath,2,1 );
+    
 end
 
      %       [ax1,h1]=suplabel('super X label');
      %       [ax2,h2]=suplabel('super Y label','y');
      %       [ax3,h2]=suplabel('super Y label (right)','yy');
-            [ax4,h3]=suplabel('Comparison of different placements'  ,'t');
+        figure(1);    [ax4,h3]=suplabel('Comparison of different placements'  ,'t');
 
 PlotMultipleCdfDop(DOP_UL_DataAll,legendName);
 

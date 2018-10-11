@@ -35,9 +35,16 @@ grid on;
 
 if exist('AddnPotentialBeacLoc')==1
 if F_AddnBeac && ~isempty(AddnPotentialBeacLoc)
-    scatter(AddnPotentialBeacLoc(:,1),AddnPotentialBeacLoc(:,2),60,'c*');
+    scatter(AddnPotentialBeacLoc(:,1),AddnPotentialBeacLoc(:,2),100,'r*');
 end
 end
+
+if exist('SelectCornersForBeacLoc')==1
+if F_AddnBeac && ~isempty(SelectCornersForBeacLoc)
+    scatter(SelectCornersForBeacLoc(:,1),SelectCornersForBeacLoc(:,2),100,'r*');
+end
+end
+
 
 end
 
