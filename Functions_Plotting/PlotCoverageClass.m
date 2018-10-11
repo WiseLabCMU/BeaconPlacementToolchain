@@ -24,9 +24,11 @@ switch F_color
         scatter(PtsInFp(C,1),PtsInFp(C,2),'y*');
         C = find(Class==6);
         scatter(PtsInFp(C,1),PtsInFp(C,2),'r*');
-    case 2 % Plot 2-beacon coverage and 3 beacon coverage in different colors
-        C = find(Class==3);
+    case 2 % Plot 2-beacon coverage 
+        C = find(Class==3 | Class ==2);
         scatter(PtsInFp(C,1),PtsInFp(C,2),'*','MarkerEdgeColor',[0.3 0.3 0.3]);      
+        C = find(Class>=4); % ideally no points should be in green
+        scatter(PtsInFp(C,1),PtsInFp(C,2),200,'*','MarkerEdgeColor','g'); 
 end
 PlotFloorPlan(FloorPlanPath,0,1);
 %PlotDeployment(FloorPlanPath,0,1);
