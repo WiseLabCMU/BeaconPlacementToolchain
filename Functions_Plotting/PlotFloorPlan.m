@@ -18,7 +18,9 @@ for m = 1:size(Obstacles,2)
     end
 end
 % = 18;
-axis tight;
+%axis tight;
+xlim([min(Corners(:,1))-0.4 max(Corners(:,1))+0.4]);
+ylim([min(Corners(:,2))-0.4 max(Corners(:,2))+0.4]);
 axis equal;
 
 if F_TickOff==1
